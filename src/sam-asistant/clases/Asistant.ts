@@ -1,110 +1,127 @@
 import OpenAI from "openai";
+import { formatDate } from "src/helpers";
+import { GetMessagesResponse, MessageResponse } from "../interfaces/interfaces";
 
 
-export class Asistant {
+export class Assistant {
+    private readonly DEFAULT_LIMIT = 6;
 
-    constructor(private openai: OpenAI, private threadId?:string,private assistantId = "asst_GpJRHA8niItESnhrOqBUYIPS") { 
-        if (this.threadId.length === 0) {
-            this.createThread().then((thread) => {
-                this.threadId = thread.id;
-            });
+    constructor(
+        private readonly openai: OpenAI,
+        private threadId?: string,
+        private readonly assistantId = "asst_GpJRHA8niItESnhrOqBUYIPS"
+    ) {
+        this.initThread();
+    }
+
+    private async initThread(): Promise<void> {
+        if (!this.threadId || this.threadId.length === 0) {
+            const thread = await this.createThread();
+            this.threadId = thread.id;
         }
     }
 
-    get ThreadId() {
+    get ThreadId(): string {
         return this.threadId;
     }
 
-    private convertirFecha(fecha: number) {
-        const date = new Date(fecha * 1000); // Convertir a milisegundos
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Enero es 0!
-        const year = date.getFullYear();
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-
-        return `${day}-${month}-${year} ${hours}:${minutes}`;
-    }
-
-   
-
-    public async getMessages(limit?:number) {
-        if (this.ThreadId.length === 0) {
-            throw new Error("Thread is required");
+    public async isValidThread(): Promise<boolean> {
+        try {
+            await this.openai.beta.threads.retrieve(this.threadId);
+            return true;
+        } catch {
+            return false;
         }
-        const messageList = await this.openai.beta.threads.messages.list(this.threadId,{limit});        
-        console.log(messageList);
-        const messages = messageList.data.map((message) => ({
+    }
+
+    public async getMessages(limit: number = this.DEFAULT_LIMIT): Promise<GetMessagesResponse> {
+        try {
+            const isValidThread = await this.isValidThread();
+            if (!isValidThread) {
+                return { error: "Thread no valido", messages: [] };
+            }
+            const messageList = await this.openai.beta.threads.messages.list(this.threadId, { limit });
+            const messages = messageList.data.map(this.formatMessage);
+            return { error: null, messages: messages.reverse() };
+        } catch (error) {
+            return { error: error.message, messages: [] };
+        }
+    }
+
+    private formatMessage(message: any): MessageResponse {
+        return {
             role: message.role,
-            created_at: this.convertirFecha(message.created_at),
-            text: message.content.map(content => ((content as any).text.value)|| [''])[0]
-        }));
-        return messages.reverse();
+            created_at: formatDate(message.created_at),
+            text: message.content[0]?.text?.value || ''
+        };
+    }
+
+    public async makeQuestion(question: string) {
+        const isValidThread = await this.isValidThread();
+            if (!isValidThread) {
+                return { error: "Thread no valido", messages: [] };
+            }
+        await this.createMessage(question);
+        const runId = await this.createRun();
+        await this.checkStatusRun(runId);
+        return this.getMessages(2);
     }
 
 
-    public async userQuestion(question) {
-        if (this.ThreadId.length === 0) {
-            throw new Error("Thread is required");
-        }        
-        await this.createMessage(question);        
-        const runId = await this.createRun();
-        await this.checkStatusRun( runId);
-        const messages = await this.getMessages(2);
-        return messages     
+    private async createRun() {
+        const response= this.openai.beta.threads.runs.create(this.threadId, {
+            assistant_id: this.assistantId
+        });
+        return (await response).id;
     }
 
 
     private async createThread() {
-        const thread = await this.openai.beta.threads.create();
-        return thread;
+        return await this.openai.beta.threads.create();
     }
 
-    private createMessage (content:string) {
-          this.openai.beta.threads.messages.create(this.threadId, {
-            content: content,
+    
+    private async createMessage(content: string) {
+        return await this.openai.beta.threads.messages.create(this.threadId, {
+            content,
             role: "user"
-        });                
+        });
     }
 
-    public async *createRunStream(question: string) {
-        if (this.ThreadId.length === 0) {
-            throw new Error("Thread is required");
-        }
+    // public async *createRunStream(question: string) {
+    //     this.validateThread();
+    //     await this.createMessage(question);
+
+    //     const stream = await this.openai.beta.threads.runs.create(this.threadId, {
+    //         assistant_id: this.assistantId,
+    //         stream: true
+    //     });
+
+    //     for await (const chunk of stream) {
+    //         const delta = chunk.data?.delta;
+    //         if (delta?.content?.[0]?.text?.value) {
+    //             yield delta.content[0].text.value;
+    //         }
+    //     }
+    // }
+
+    private async checkStatusRun(runId: string, maxRetries = 10) {
+        let retries = 0;        
+        while (retries < maxRetries) {
+            const runStatus = await this.openai.beta.threads.runs.retrieve(this.threadId, runId);
             
-        await this.createMessage(question);    
-        
-        const stream = await this.openai.beta.threads.runs.create(this.threadId, {
-            assistant_id: this.assistantId,
-            stream: true
-        });        
-        for await (const chunk of stream) {
-            const delta = chunk.data["delta"];              
-            if (delta !=undefined){             
-                yield delta.content[0].text.value                
-            }            
-        }            
-                        
-    }
+            if (runStatus.status === 'completed' || runStatus.status === 'failed') {
+                if (runStatus.usage) {
+                    const { prompt_tokens, completion_tokens, total_tokens } = runStatus.usage;
+                    console.log({ prompt_tokens, completion_tokens, total_tokens });
+                }
+                return runStatus;
+            }
 
-    private async createRun() {
-        const run = await this.openai.beta.threads.runs.create(this.ThreadId, {
-            assistant_id: this.assistantId,                
-        });        
-        return run.id;
-    }
-
-
-    private async checkStatusRun( runId: string) {
-        const runStatus = await this.openai.beta.threads.runs.retrieve(this.threadId, runId);        
-        if (runStatus.status === 'completed' || runStatus.status === 'failed') {
-            const { prompt_tokens,completion_tokens,total_tokens} = runStatus.usage;
-            console.log({ prompt_tokens,completion_tokens,total_tokens});
-            return runStatus;
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            retries++;
         }
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        return await this.checkStatusRun(runId);
 
+        throw new Error('Max retries reached waiting for run completion');
     }
-
 }

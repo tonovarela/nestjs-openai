@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Res, StreamableFile } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post,  } from '@nestjs/common';
 import { SamAsistantService } from './sam-asistant.service';
 import { QuestionDto } from './dto/question.dto';
 
@@ -8,18 +8,25 @@ export class SamAsistantController {
   constructor(private readonly samAsistantService: SamAsistantService) { }
 
 
-
   @Post('create-thread') async createThread() {
     return this.samAsistantService.createThread();    
   }
-
-
-  @Post('user-question') async userQuestion(@Body() questionDto: QuestionDto) {
-    return this.samAsistantService.userQuestion(questionDto);    
+  @Post('user-question') async question(@Body() questionDto: QuestionDto) {   
+   return this.samAsistantService.userQuestion(questionDto);    
   }
 
   @Get('get-messages/:threadId') async getMessages(@Param("threadId") threadId: string) {    
-    return this.samAsistantService.getMessages(threadId);
+     const {error,messages} = await this.samAsistantService.getMessages(threadId);               
+     if (error!==null) {
+         throw new HttpException(error, HttpStatus.NOT_FOUND);
+     }     
+     return {messages};    
+    
+  }
+
+
+  @Get('list-asistants') async listAsistants() {
+    return this.samAsistantService.listAsistants();
   }
 
   // @Get('stream-text')
