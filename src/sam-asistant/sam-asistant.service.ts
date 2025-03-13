@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import OpenAI from 'openai';
 import { QuestionDto } from './dto/question.dto';
 
-import { Assistant } from './clases/Asistant';
+import { Assistant } from './clases/Assistant';
 
 
 @Injectable()
