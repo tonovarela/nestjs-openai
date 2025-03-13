@@ -15,8 +15,7 @@ export class SamAsistantController {
    return this.samAsistantService.userQuestion(questionDto);    
   }
 
-  @Get('get-messages/:threadId') async getMessages(@Param("threadId") threadId: string) {       
-     
+  @Get('get-messages/:threadId') async getMessages(@Param("threadId") threadId: string) {            
      const {error,messages} = await this.samAsistantService.getMessages(threadId);               
      if (error!==null) {      
          throw new HttpException(error, HttpStatus.NOT_FOUND);
