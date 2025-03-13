@@ -5,6 +5,8 @@ import { QuestionDto } from './dto/question.dto';
 import { Assistant } from './clases/Assistant';
 
 
+
+
 @Injectable()
 export class SamAsistantService {
   private readonly openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });

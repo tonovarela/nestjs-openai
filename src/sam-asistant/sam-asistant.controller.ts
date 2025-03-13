@@ -1,6 +1,7 @@
-import { Body, Controller, Get, HttpException, HttpStatus, NotFoundException, Param, Post,  } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus,  Param, Post, Sse, } from '@nestjs/common';
 import { SamAsistantService } from './sam-asistant.service';
 import { QuestionDto } from './dto/question.dto';
+import {  interval, map, Observable } from 'rxjs';
 
 
 @Controller('sam-asistant')
@@ -9,22 +10,32 @@ export class SamAsistantController {
   constructor(private readonly samAsistantService: SamAsistantService) { }
 
   @Post('create-thread') async createThread() {
-    return this.samAsistantService.createThread();    
+    return this.samAsistantService.createThread();
   }
-  @Post('user-question') async question(@Body() questionDto: QuestionDto) {   
-   return this.samAsistantService.userQuestion(questionDto);    
+  @Post('user-question') async question(@Body() questionDto: QuestionDto) {
+    return this.samAsistantService.userQuestion(questionDto);
   }
 
-  @Get('get-messages/:threadId') async getMessages(@Param("threadId") threadId: string) {            
-     const {error,messages} = await this.samAsistantService.getMessages(threadId);               
-     if (error!==null) {      
-         throw new HttpException(error, HttpStatus.NOT_FOUND);
-     }     
-     return {messages};        
+  @Get('get-messages/:threadId') async getMessages(@Param("threadId") threadId: string) {
+    const { error, messages } = await this.samAsistantService.getMessages(threadId);
+    if (error !== null) {
+      throw new HttpException(error, HttpStatus.NOT_FOUND);
+    }
+    return { messages };
   }
 
   @Get('list-asistants') async listAsistants() {
     return this.samAsistantService.listAsistants();
+  }
+
+
+  @Sse('sse')
+  sse()  {
+    
+    //return { data: { hello: 'world' } };
+    return interval(1000).pipe(
+      map((_) => ({ data: { hello: 'world' } }) as MessageEvent),
+    );
   }
 
   // @Get('stream-text')
@@ -66,7 +77,7 @@ export class SamAsistantController {
   //     //     for await (const chunk of stream) {
   //     //         console.log(chunk);
   //     //     }
-          
+
   //     // } catch (error) {
   //     //     console.log(error);
   //     // }
