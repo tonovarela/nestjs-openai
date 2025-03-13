@@ -8,7 +8,7 @@ export class SamAsistantController {
   constructor(private readonly samAsistantService: SamAsistantService) { }
 
 
-  
+
   @Post('create-thread') async createThread() {
     return this.samAsistantService.createThread();    
   }
@@ -27,26 +27,17 @@ export class SamAsistantController {
   //   response.setHeader('Content-Type', 'text/event-stream');
   //   response.setHeader('Cache-Control', 'no-cache');
   //   response.setHeader('Connection', 'keep-alive');
-
   //   try {
   //     const stream = this.samAsistantService.userQuestionStream(questionDto);
-
   //     for await (const chunk of stream) {
   //       response.write(`data: ${JSON.stringify({ data: chunk })}\n\n`);
   //     }
-
   //     response.end();
   //   } catch (error) {
   //     response.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
   //     response.end();
   //   }
   // }
-
-
-  
-
-  
- 
 
 
   // @Post('streasm')
