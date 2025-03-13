@@ -88,22 +88,22 @@ export class Assistant {
         });
     }
 
-    // public async *createRunStream(question: string) {
-    //     this.validateThread();
-    //     await this.createMessage(question);
+    public async *createRunStream(question: string) {
+        //this.validateThread();
+        await this.createMessage(question);
 
-    //     const stream = await this.openai.beta.threads.runs.create(this.threadId, {
-    //         assistant_id: this.assistantId,
-    //         stream: true
-    //     });
+        const stream = await this.openai.beta.threads.runs.create(this.threadId, {
+            assistant_id: this.assistantId,
+            stream: true
+        });
 
-    //     for await (const chunk of stream) {
-    //         const delta = chunk.data?.delta;
-    //         if (delta?.content?.[0]?.text?.value) {
-    //             yield delta.content[0].text.value;
-    //         }
-    //     }
-    // }
+        for await (const chunk of stream) {
+            const delta = chunk.data["delta"];
+            if (delta?.content?.[0]?.text?.value) {
+                yield delta.content[0].text.value;
+            }
+        }
+    }
 
     private async checkStatusRun(runId: string, maxRetries = 10) {
         let retries = 0;        
