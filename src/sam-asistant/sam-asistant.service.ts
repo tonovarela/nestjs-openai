@@ -25,7 +25,8 @@ export class SamAsistantService {
 
 
   async createThread() {
-    const asistantInstance = new Assistant(this.openai, "")
+    const asistantInstance = new Assistant(this.openai, "");
+    await asistantInstance.initThread();
     return asistantInstance.ThreadId;
   }
 

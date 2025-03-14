@@ -13,34 +13,7 @@ export class SamAsistantController {
   @Post('create-thread') async createThread() {
     return this.samAsistantService.createThread();
   }
-  @Post('user-question') async question(@Body() questionDto: QuestionDto, 
-//  @Res() response: Response
-) {
-    // console.log(questionDto);
-    // if (questionDto.stream) {
-    
-    //   response.setHeader('Content-Type', 'text/event-stream');
-    //   response.setHeader('Cache-Control', 'no-cache');
-    //   response.setHeader('Connection', 'keep-alive');
-    //   try {
-    //     const stream = await this.samAsistantService.userQuestionStream(questionDto);
-    //     for await (const chunk of stream) {
-    //       console.log(chunk);
-    //       response.write(`data: ${JSON.stringify({ data: chunk })}\n\n`);
-    //     }
-    //     response.end();
-    //   } catch (error) {
-    //     // Manejo de errores
-    //     response.write(`data: ${JSON.stringify({
-    //       error: error.message,
-    //       timestamp: new Date().toISOString()
-    //     })}\n\n`);
-    //     response.end();
-    //   }
-    //   return;
-
-    // }
-    
+  @Post('user-question') async question(@Body() questionDto: QuestionDto) {
     return this.samAsistantService.userQuestion(questionDto);
   }
 
@@ -55,28 +28,33 @@ export class SamAsistantController {
   @Get('list-asistants') async listAsistants() {
     return this.samAsistantService.listAsistants();
   }
-  @Post('stream')
+
+
+  @Post('user-question-stream')
   @Header('Content-Type', 'text/event-stream')
-@Header('Cache-Control', 'no-cache')
-@Header('Connection', 'keep-alive')
+  @Header('Cache-Control', 'no-cache')
+  @Header('Connection', 'keep-alive')
   async userQuestionStream(
     @Body() questionDto: QuestionDto,
-    @Res({ passthrough: true }) response: Response) {    
+    @Res({ passthrough: true }) response: Response
+  ) {    
     try {
       const stream = await this.samAsistantService.userQuestionStream(questionDto);
-      // Procesar el stream
+      let accumulatedResponse = '';
+  
       for await (const chunk of stream) {      
-        console.log(chunk)
-        response.write(`data: ${JSON.stringify({ data: chunk })}\n\n`);      
+        accumulatedResponse += chunk;
+        response.write(`data: ${JSON.stringify({ 
+          data: chunk,
+          fullResponse: accumulatedResponse 
+        })}\n\n`);      
       }
       response.end();
     } catch (error) {
-      
-      // Manejo de errores
-      // response.write(`data: ${JSON.stringify({
-      //   error: error.message,
-      //   timestamp: new Date().toISOString()
-      // })}\n\n`);
+      response.write(`data: ${JSON.stringify({
+        error: error.message,
+        timestamp: new Date().toISOString()
+      })}\n\n`);
       response.end();
     }
   }

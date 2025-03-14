@@ -9,14 +9,14 @@ export class Assistant {
     constructor(
         private readonly openai: OpenAI,
         private threadId?: string,
-        private readonly assistantId = "asst_GpJRHA8niItESnhrOqBUYIPS"
+        private readonly assistantId = "asst_2bnvUZDIEWFXvUHGahUkRFy6"
     ) {
-        this.initThread();
+        //this.initThread();
     }
 
-    private async initThread(): Promise<void> {
+    public async initThread(): Promise<void> {
         if (!this.threadId || this.threadId.length === 0) {
-            const thread = await this.createThread();
+            const thread = await this.createThread();            
             this.threadId = thread.id;
         }
     }
