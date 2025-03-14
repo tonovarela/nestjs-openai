@@ -12,4 +12,3 @@
 https://blog.stackademic.com/unlocking-stream-capabilities-in-openai-chat-integration-d9ab49c4659d
 ```
    
-   

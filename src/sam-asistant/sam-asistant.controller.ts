@@ -1,7 +1,8 @@
-import { Body, Controller, Get, HttpException, HttpStatus,  Param, Post, Sse, } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Res,Header } from '@nestjs/common';
 import { SamAsistantService } from './sam-asistant.service';
 import { QuestionDto } from './dto/question.dto';
-import {  interval, map, Observable } from 'rxjs';
+
+import { Response } from 'express';
 
 
 @Controller('sam-asistant')
@@ -29,60 +30,36 @@ export class SamAsistantController {
   }
 
 
-  @Sse('sse')
-  sse()  {
-    
-    //return { data: { hello: 'world' } };
-    return interval(1000).pipe(
-      map((_) => ({ data: { hello: 'world' } }) as MessageEvent),
-    );
+  @Post('user-question-stream')
+  @Header('Content-Type', 'text/event-stream')
+  @Header('Cache-Control', 'no-cache')
+  @Header('Connection', 'keep-alive')
+  async userQuestionStream(
+    @Body() questionDto: QuestionDto,
+    @Res({ passthrough: true }) response: Response
+  ) {    
+    try {
+      const stream = await this.samAsistantService.userQuestionStream(questionDto);
+      let accumulatedResponse = '';
+  
+      for await (const chunk of stream) {      
+        accumulatedResponse += chunk;
+        response.write(`data: ${JSON.stringify({ 
+          data: chunk,
+          fullResponse: accumulatedResponse 
+        })}\n\n`);      
+      }
+      response.end();
+    } catch (error) {
+      response.write(`data: ${JSON.stringify({
+        error: error.message,
+        timestamp: new Date().toISOString()
+      })}\n\n`);
+      response.end();
+    }
   }
 
-  // @Get('stream-text')
-  // async streamText(@Body() questionDto: QuestionDto, @Res() response: Response) {
-  //   response.setHeader('Content-Type', 'text/event-stream');
-  //   response.setHeader('Cache-Control', 'no-cache');
-  //   response.setHeader('Connection', 'keep-alive');
-  //   try {
-  //     const stream = this.samAsistantService.userQuestionStream(questionDto);
-  //     for await (const chunk of stream) {
-  //       response.write(`data: ${JSON.stringify({ data: chunk })}\n\n`);
-  //     }
-  //     response.end();
-  //   } catch (error) {
-  //     response.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
-  //     response.end();
-  //   }
-  // }
 
-
-  // @Post('streasm')
-  // async createRunStream(
-  //     @Body() questionDto: QuestionDto,
-  //     @Res() response: Response
-  // ) {
-
-  //   const stream = new Readable();
-  //   //stream.on('end', () => response.end());
-  //   stream.push('Hello World');
-  //   //stream.pipe(response);
-
-  //     // response.headers.append('Content-Type', 'text/event-stream');
-  //     // response.headers.append('Cache-Control', 'no-cache');
-  //     // response.headers.append('Connection', 'keep-alive');
-
-  //     // try {
-  //     //     const stream = this.samAsistantService.userQuestion(questionDto);
-
-  //     //     for await (const chunk of stream) {
-  //     //         console.log(chunk);
-  //     //     }
-
-  //     // } catch (error) {
-  //     //     console.log(error);
-  //     // }
-  //     // return [];
-  // }
 
 
 
