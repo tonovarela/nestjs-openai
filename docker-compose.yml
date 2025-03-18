@@ -17,4 +17,4 @@ services:
 
 networks:
   nestjs-network:
-    driver: bridge
+    driver: bridgegit 
