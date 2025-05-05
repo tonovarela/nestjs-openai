@@ -567,7 +567,8 @@ model ExternalUser {
 }
 
 model OpenAIUsers {
-  Id_Usuario     Int       @id(map: "PK_OpenAIUsers")
+  id             Int       @id(map: "PK_OpenAIUsers") @default(autoincrement())
+  Id_Usuario     Int
   assistant_id   String?   @db.VarChar(50)
   thread_id      String?   @db.VarChar(50)
   fecha_registro DateTime? @default(now(), map: "DF_OpenAIUsers_fecha_registro") @db.DateTime

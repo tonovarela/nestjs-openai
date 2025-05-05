@@ -36,10 +36,10 @@ export class SamAsistantService extends PrismaClient implements OnModuleInit {
       return threadId;
 
   }
-  getMessagesData(): Observable<any> {
-    return from(["H", "o", "l", "a", " ", " "])
-      .pipe(concatMap(num => of(num).pipe(delay(2000))));
-  }
+  // getMessagesData(): Observable<any> {
+  //   return from(["H", "o", "l", "a", " ", " "])
+  //     .pipe(concatMap(num => of(num).pipe(delay(2000))));
+  // }
 
   // async createThread() {
   //   const asistantInstance = new Assistant(this.openai, "");
