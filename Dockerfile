@@ -17,6 +17,7 @@ RUN npx prisma generate
 # Construir la aplicación
 RUN npm run build
 
+
 # Etapa de producción
 FROM node:18-alpine
 WORKDIR /app
