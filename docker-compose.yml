@@ -9,7 +9,8 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - OPENAI_API_KEY=${OPENAI_API_KEY}    
+      - OPENAI_API_KEY=${OPENAI_API_KEY}   
+      - DATABASE_URL=${DATABASE_URL} 
     networks:
       - nestjs-network
 
