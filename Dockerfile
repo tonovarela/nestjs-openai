@@ -29,7 +29,7 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/prisma ./prisma
 
 # Asegúrate de que esto apunta a tu archivo de entrada principal
-CMD ["node", "dist/src/main"]
+CMD ["node", "dist/main"]
 
 # Exponer el puerto
 EXPOSE 8088
