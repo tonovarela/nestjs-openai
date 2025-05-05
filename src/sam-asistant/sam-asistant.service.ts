@@ -18,9 +18,7 @@ export class SamAsistantService extends PrismaClient implements OnModuleInit {
 
   
   private async getThreadIdUser(Id_Usuario: string, IdAsistant: string) {    
-    const userDB= await this.openAIUsers.findFirst({
-      where: { Id_Usuario: +Id_Usuario },      
-     });     
+    const userDB= await this.openAIUsers.findFirst({where: { Id_Usuario: +Id_Usuario ,assistant_id: IdAsistant }});     
      let threadId =userDB?.thread_id || "";     
      const asistantInstance = new Assistant(this.openai,threadId,IdAsistant);    
       const isValidThread = await asistantInstance.isValidThread();

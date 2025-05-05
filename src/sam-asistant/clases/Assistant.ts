@@ -96,7 +96,6 @@ export class Assistant {
             assistant_id: this.assistantId,
             stream: true
         });
-
         for await (const chunk of stream) {
             const delta = chunk.data["delta"];
             if (delta?.content?.[0]?.text?.value) {
@@ -104,7 +103,6 @@ export class Assistant {
             }
         }
     }
-
     private async checkStatusRun(runId: string, maxRetries = 10) {
         let retries = 0;        
         while (retries < maxRetries) {
@@ -113,7 +111,7 @@ export class Assistant {
             if (runStatus.status === 'completed' || runStatus.status === 'failed') {
                 if (runStatus.usage) {
                     const { prompt_tokens, completion_tokens, total_tokens } = runStatus.usage;
-                    console.log({ prompt_tokens, completion_tokens, total_tokens });
+                    //console.log({ prompt_tokens, completion_tokens, total_tokens });
                 }
                 return runStatus;
             }
