@@ -1,35 +1,24 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Res,Header } from '@nestjs/common';
 import { SamAsistantService } from './sam-asistant.service';
 import { QuestionDto } from './dto/question.dto';
-
 import { Response } from 'express';
-
 
 @Controller('sam-asistant')
 export class SamAsistantController {
-
+  
   constructor(private readonly samAsistantService: SamAsistantService) { }
-
-  @Post('create-thread') async createThread() {
-    return this.samAsistantService.createThread();
-  }
   @Post('user-question') async question(@Body() questionDto: QuestionDto) {
     return this.samAsistantService.userQuestion(questionDto);
   }
-
-  @Get('get-messages/:threadId') async getMessages(@Param("threadId") threadId: string) {
-    const { error, messages } = await this.samAsistantService.getMessages(threadId);
+  @Get('get-messages/:id_usuario/asistant/:id_asistant') async getMessages(
+        @Param("id_usuario") id_usuario: string,
+        @Param("id_asistant") id_asistant: string) {
+    const { error, messages } = await this.samAsistantService.getMessagesPerUser(id_usuario, id_asistant);
     if (error !== null) {
       throw new HttpException(error, HttpStatus.NOT_FOUND);
     }
     return { messages };
   }
-
-  @Get('list-asistants') async listAsistants() {
-    return this.samAsistantService.listAsistants();
-  }
-
-
   @Post('user-question-stream')
   @Header('Content-Type', 'text/event-stream')
   @Header('Cache-Control', 'no-cache')
@@ -58,9 +47,5 @@ export class SamAsistantController {
       response.end();
     }
   }
-
-
-
-
 
 }

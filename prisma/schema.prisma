@@ -1,0 +1,595 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model cat_Usuarios {
+  Id_Usuario                                                   Int               @id(map: "PK__cat_Usua__63C76BE2FE5EC825") @default(autoincrement())
+  Nombre                                                       String?           @db.NVarChar(50)
+  Login                                                        String?           @db.NVarChar(50)
+  Password                                                     String?           @db.NVarChar(50)
+  Departamento                                                 String?           @db.NVarChar(50)
+  Agente                                                       String?           @db.VarChar(10)
+  Correo                                                       String?           @db.NVarChar(100)
+  Correo2                                                      String?           @db.NVarChar(100)
+  Extension                                                    Decimal?          @db.Decimal(18, 0)
+  Puesto                                                       String?           @db.VarChar(50)
+  estatus                                                      String?           @db.VarChar(20)
+  EstatusLitoApps                                              Int?
+  EstatusTickets                                               Int?
+  EstatusTSistemas                                             Int?
+  TipoUsuarioTSistemas                                         Int?
+  EstatusTMantto                                               Int?
+  TipoUsuarioTMantto                                           Int?
+  EstatusTMensajerias1                                         Int?
+  TipoUsuarioTMensajeria1                                      Int?
+  EstatusTMensajerias2                                         Int?
+  TipoUsuarioTMensajerias2                                     Int?
+  EstatusCRM                                                   Int?
+  TipoUsuarioCRM                                               Int?
+  IdCRM                                                        Int?
+  EstatusLibera                                                Int?
+  TipoUsuarioLibera                                            Int?
+  EstatusMaquilas                                              Int?
+  TipoUsuarioMaquilas                                          Int?
+  EstatusMuestras                                              Int?
+  TipoUsuarioMuestras                                          Int?
+  EstatusRevBDD                                                Int?
+  TipoUsuarioRevBDD                                            Int?
+  EstatusReprocesos                                            Int?
+  TipoUsuarioReprocesos                                        Int?
+  EstatusCapacitacion                                          Int?
+  TipoUsuarioCapacitacion                                      Int?
+  EstatusInventario                                            Int?
+  TipoUsuarioInventario                                        Int?
+  EstatusNissan                                                Int?
+  TipoUsuarioNissan                                            Int?
+  EstatusCRECE                                                 Int?
+  TipoUsuarioCRECE                                             Int?
+  EstatusCotizador                                             Int?
+  TipoUsuarioCotizador                                         Int?
+  TipoUsuarioListadoCotizador                                  Int?
+  EstatusReportesProduccion                                    Int?
+  TipoUsuarioReportesProduccion                                Int?
+  EstatusPreviewOP                                             Int?
+  TipoUsuarioPreviewOP                                         Int?
+  EstatusiDashboards                                           Int?
+  EstatusDBxtra                                                Int?
+  EstatusStarbucks                                             Int?
+  EstatusStarbucks2                                            Int?
+  EstatusKrispyKreme                                           Int?
+  TipoUsuarioMantenimiento                                     Int?
+  EstatusMantenimiento                                         Int?
+  EstatusReqPersonal                                           Int?
+  TipoUsuarioReqPersonal                                       Int?
+  EstatusMesaControl                                           Int?
+  TipoUsuarioPropuestas                                        Int?
+  EstatusPropuestas                                            Int?
+  TipoUsuarioQuejas                                            Int?
+  EstatusQuejas                                                Int?
+  TipoUsuarioEncuesta                                          Int?
+  EstatusEncuesta                                              Int?
+  TipoUsuarioAccountability                                    Int?
+  EstatusAccountability                                        Int?
+  EstatusMapasProcesos                                         Int?
+  PassSugar                                                    String?           @db.NChar(10)
+  EstatusAvancesProyectos                                      Int?
+  TipoUsuarioAvancesProyectos                                  Int?
+  TipoUsuarioCalidad                                           Int?
+  EstatusCalidad                                               Int?
+  EstatusVW                                                    Int?
+  TipoUsuarioVW                                                Int?
+  EstatusContratos                                             Int?
+  TipoUsuarioContratos                                         Int?
+  fecha_nacimiento                                             DateTime?         @db.Date
+  EstatusFichasTecnicas                                        Int?
+  TipoUsuarioJuntas                                            Int?
+  EstatusJuntas                                                Int?
+  EstatusFiesta                                                Int?
+  TipoUsuarioFiesta                                            Int?
+  TipoUsuarioLayouts                                           Int?
+  EstatusLayouts                                               Int?
+  TipoUsuarioFechasEntrega                                     Int?
+  EstatusFechasEntrega                                         Int?
+  TipoUsuarioProductividadAM                                   Int?
+  EstatusProductividadAM                                       Int?
+  TipoUsuarioMapasProcesos                                     Int?
+  EstatusAltaClientes                                          Int?
+  TipoUsuarioAltaClientes                                      Int?
+  EstatusSGC                                                   Int?
+  TipoUsuarioSGC                                               Int?
+  TipoUsuarioFichasTecnicas                                    Int?
+  EstatusEtiquetas                                             Int?
+  TipoUsuarioEtiquetas                                         Int?
+  EstatusAuditorias                                            Int?
+  TipoUsuarioAuditorias                                        Int?
+  EstatusDosiers                                               Int?
+  EstatusStarbucks3                                            Int?
+  EstatusTMuestras                                             Int?
+  TipoUsuarioTMuestras                                         Int?
+  EstatusAlmacenPT                                             Int?
+  TipoUsuarioAlmacenPT                                         Int?
+  EstatusSolunion                                              Int?
+  TipoUsuarioSolunion                                          Int?
+  Personal                                                     Int?
+  EstatusTDesing                                               Int?
+  TipoUsuarioTDesing                                           Int?
+  EstatusAltaArticulosIntelisis                                Int?
+  TipoUsuarioAltaArticulosIntelisis                            Int?
+  EstatusKFC                                                   Int?
+  EstatusAltaArticulos                                         Int?
+  PasswordAltaArticulos                                        String?           @db.VarChar(255)
+  TipoUsuarioTicketsEstructural                                Int?
+  EstatusTicketsEstructural                                    Int?
+  EstatusIncidencias                                           Int?
+  TipoUsuarioIncidencias                                       Int?
+  EstatusNissanInventarios                                     Int?              @default(0, map: "DF_cat_Usuarios_EstatusNissanInventarios")
+  encryptPassword                                              Bytes?            @db.VarBinary(1)
+  updatePassword                                               Bytes?            @db.Binary(1)
+  EstatusAsistencias                                           Int?
+  TipoUsuarioAsistencias                                       Int?
+  EstatusVales                                                 Int?
+  TipoUsuarioVales                                             Int?
+  EstatusBuro                                                  Int?
+  TipoUsuarioBuro                                              Int?
+  TipoUsuarioSB                                                Int?
+  TipoUsuarioKrispyKreme                                       Int?
+  TipoUsuarioKfc                                               Int?
+  EstatusDocumentosLicitaciones                                Int?
+  TipoUsuarioDocumentosLicitaciones                            Int?
+  EstatusLiteratura                                            Int?
+  TipoUsuarioLiteratura                                        Int?
+  PasswordAutCredito                                           String?           @db.VarChar(255)
+  EstatusCertificadosCalidad                                   Int?
+  TipoUsuarioCertificadosCalidad                               Int?
+  EstatusIncidenciasProduccion                                 Int?
+  TipoUsuarioIncidenciasProduccion                             Int?
+  EstatusArticulosMultiples                                    Int?
+  EstatusCuestionariosSTPS                                     Int?
+  TipoUsuarioCuestionariosSTPS                                 Int?
+  EstatusAdenda                                                Int?
+  EstatusSolicitudes                                           Int?
+  EstatusSliders                                               Int?
+  TipoUsuarioSliders                                           Int?
+  EstatusKrispyKreme2                                          Int?
+  TipoUsuarioKrispyKreme2                                      Int?
+  numCelular                                                   String?           @db.Char(10)
+  EstatusDescripcionPuestos                                    Int?
+  TipoUsuarioDescripcionPuestos                                Int?
+  TipoUsuarioMantenimientoOffset                               Int?
+  EstatusMantenimientoOffset                                   Int?
+  AutorizaAuditorias                                           Int?              @default(0, map: "DF_cat_Usuarios_AutorizaAuditorias")
+  AutorizaAuditoriasOffset                                     Int?              @default(0, map: "DF_cat_Usuarios_AutorizaAuditoriasOffset")
+  idMetrics                                                    Int?
+  EstatusPortal                                                Int?
+  EstatusDirectorio                                            Int?
+  EstatusTrafico                                               Int?
+  TipoUsuarioTrafico                                           Int?
+  EstatusAlmacen                                               Int?
+  EstatusAuditoriaInventario                                   Int?
+  TipoUsuarioAuditoriaInventario                               Int?
+  EstatusReprocesos2                                           Int?              @default(0, map: "DF_cat_Usuarios_EstatusReprocesos2")
+  TipoUsuarioReprocesos2                                       Int?              @default(0, map: "DF_cat_Usuarios_TipoUsuarioReprocesos2")
+  Correo_Reprocesos2                                           String?           @db.NVarChar(100)
+  PswMail                                                      String?           @db.VarChar(30)
+  EstatusControlMateriales                                     Int?
+  EstatusRepositorio                                           Int?
+  EstatusMantPreventivo                                        Int?
+  EstatusCotizadorV2                                           Int?
+  TipoUsuarioCotizadorV2                                       Int?
+  estatusCinepolis                                             Int?
+  estatusPNAG                                                  Int?
+  TipoUsuarioPNAG                                              Int?
+  estatusticketSisol                                           Int?
+  tipoUsuarioTicketSisol                                       Int?
+  estatusComisionesLito                                        Int?
+  tipoUsuarioComisionesLito                                    Int?
+  estatusSolicitudOffset                                       Int?
+  estatusEspecificacionProducto                                Int?
+  estatusAuditoriasSisol                                       Int?
+  tipoUsuarioAuditoriasSisol                                   Int?
+  estatusEmbarques                                             Int?              @default(0, map: "DF_cat_Usuarios_estatusEmbarques")
+  alias                                                        String?           @db.VarChar(20)
+  estatusHorasExtra                                            Int?
+  tipoUsuarioHorasExtra                                        Int?
+  PwsOAuth                                                     String?           @db.VarChar(255)
+  CatPerfiles_cat_Usuarios_TipoUsuarioSBToCatPerfiles          CatPerfiles?      @relation("cat_Usuarios_TipoUsuarioSBToCatPerfiles", fields: [TipoUsuarioSB], references: [Id_Perfil], onDelete: NoAction, onUpdate: NoAction, map: "FK_cat_Usuarios_CatPerfiles")
+  CatPerfiles_cat_Usuarios_TipoUsuarioKrispyKremeToCatPerfiles CatPerfiles?      @relation("cat_Usuarios_TipoUsuarioKrispyKremeToCatPerfiles", fields: [TipoUsuarioKrispyKreme], references: [Id_Perfil], onDelete: NoAction, onUpdate: NoAction, map: "FK_cat_Usuarios_CatPerfiles1")
+  CatPerfiles_cat_Usuarios_TipoUsuarioKfcToCatPerfiles         CatPerfiles?      @relation("cat_Usuarios_TipoUsuarioKfcToCatPerfiles", fields: [TipoUsuarioKfc], references: [Id_Perfil], onDelete: NoAction, onUpdate: NoAction, map: "FK_cat_Usuarios_CatPerfiles2")
+  PermisosUsuario                                              PermisosUsuario[]
+}
+
+model cat_Usuarios_copy {
+  Id_Usuario                    Int      @id(map: "PK__cat_Usua__63C76BE20EADD1D4") @default(autoincrement())
+  Nombre                        String?  @db.NVarChar(50)
+  Login                         String?  @db.NVarChar(50)
+  Password                      String?  @db.NVarChar(50)
+  Departamento                  String?  @db.NVarChar(50)
+  Agente                        String?  @db.VarChar(10)
+  Correo                        String?  @db.NVarChar(100)
+  Correo2                       String?  @db.NVarChar(100)
+  Extension                     Decimal? @db.Decimal(18, 0)
+  Puesto                        String?  @db.VarChar(50)
+  estatus                       String?  @db.VarChar(20)
+  EstatusLitoApps               Int?
+  EstatusTickets                Int?
+  EstatusTSistemas              Int?
+  TipoUsuarioTSistemas          Int?
+  EstatusTMantto                Int?
+  TipoUsuarioTMantto            Int?
+  EstatusTMensajerias1          Int?
+  TipoUsuarioTMensajeria1       Int?
+  EstatusTMensajerias2          Int?
+  TipoUsuarioTMensajerias2      Int?
+  EstatusCRM                    Int?
+  TipoUsuarioCRM                Int?
+  IdCRM                         Int?
+  EstatusLibera                 Int?
+  TipoUsuarioLibera             Int?
+  EstatusMaquilas               Int?
+  TipoUsuarioMaquilas           Int?
+  EstatusMuestras               Int?
+  TipoUsuarioMuestras           Int?
+  EstatusRevBDD                 Int?
+  TipoUsuarioRevBDD             Int?
+  EstatusReprocesos             Int?
+  TipoUsuarioReprocesos         Int?
+  EstatusCapacitacion           Int?
+  TipoUsuarioCapacitacion       Int?
+  EstatusInventario             Int?
+  TipoUsuarioInventario         Int?
+  EstatusNissan                 Int?
+  TipoUsuarioNissan             Int?
+  EstatusCRECE                  Int?
+  TipoUsuarioCRECE              Int?
+  EstatusCotizador              Int?
+  TipoUsuarioCotizador          Int?
+  TipoUsuarioListadoCotizador   Int?
+  EstatusReportesProduccion     Int?
+  TipoUsuarioReportesProduccion Int?
+  EstatusPreviewOP              Int?
+  TipoUsuarioPreviewOP          Int?
+  EstatusiDashboards            Int?
+  EstatusDBxtra                 Int?
+  EstatusStarbucks              Int?
+  EstatusStarbucks2             Int?
+  EstatusKrispyKreme            Int?
+  TipoUsuarioMantenimiento      Int?
+  EstatusMantenimiento          Int?
+  EstatusReqPersonal            Int?
+  TipoUsuarioReqPersonal        Int?
+  EstatusMesaControl            Int?
+  TipoUsuarioPropuestas         Int?
+  EstatusPropuestas             Int?
+  TipoUsuarioQuejas             Int?
+  EstatusQuejas                 Int?
+  TipoUsuarioEncuesta           Int?
+  EstatusEncuesta               Int?
+  TipoUsuarioAccountability     Int?
+  EstatusAccountability         Int?
+  EstatusMapasProcesos          Int?
+  PassSugar                     String?  @db.NChar(10)
+  EstatusAvancesProyectos       Int?
+  TipoUsuarioAvancesProyectos   Int?
+  TipoUsuarioCalidad            Int?
+  EstatusCalidad                Int?
+  EstatusVW                     Int?
+  TipoUsuarioVW                 Int?
+}
+
+model cat_Usuarios_Pruebas {
+  Id_Usuario                    Int       @id(map: "PK__cat_Usua__63C76BE26A029926") @default(autoincrement())
+  Nombre                        String?   @db.NVarChar(50)
+  Login                         String?   @db.NVarChar(50)
+  Password                      String?   @db.NVarChar(50)
+  Departamento                  String?   @db.NVarChar(50)
+  Agente                        String?   @db.VarChar(10)
+  Correo                        String?   @db.NVarChar(100)
+  Correo2                       String?   @db.NVarChar(100)
+  Extension                     Decimal?  @db.Decimal(18, 0)
+  Puesto                        String?   @db.VarChar(50)
+  estatus                       String?   @db.VarChar(20)
+  EstatusLitoApps               Int?
+  EstatusTickets                Int?
+  EstatusTSistemas              Int?
+  TipoUsuarioTSistemas          Int?
+  EstatusTMantto                Int?
+  TipoUsuarioTMantto            Int?
+  EstatusTMensajerias1          Int?
+  TipoUsuarioTMensajeria1       Int?
+  EstatusTMensajerias2          Int?
+  TipoUsuarioTMensajerias2      Int?
+  EstatusCRM                    Int?
+  TipoUsuarioCRM                Int?
+  IdCRM                         Int?
+  EstatusLibera                 Int?
+  TipoUsuarioLibera             Int?
+  EstatusMaquilas               Int?
+  TipoUsuarioMaquilas           Int?
+  EstatusMuestras               Int?
+  TipoUsuarioMuestras           Int?
+  EstatusRevBDD                 Int?
+  TipoUsuarioRevBDD             Int?
+  EstatusReprocesos             Int?
+  TipoUsuarioReprocesos         Int?
+  EstatusCapacitacion           Int?
+  TipoUsuarioCapacitacion       Int?
+  EstatusInventario             Int?
+  TipoUsuarioInventario         Int?
+  EstatusNissan                 Int?
+  TipoUsuarioNissan             Int?
+  EstatusCRECE                  Int?
+  TipoUsuarioCRECE              Int?
+  EstatusCotizador              Int?
+  TipoUsuarioCotizador          Int?
+  TipoUsuarioListadoCotizador   Int?
+  EstatusReportesProduccion     Int?
+  TipoUsuarioReportesProduccion Int?
+  EstatusPreviewOP              Int?
+  TipoUsuarioPreviewOP          Int?
+  EstatusiDashboards            Int?
+  EstatusDBxtra                 Int?
+  EstatusStarbucks              Int?
+  EstatusStarbucks2             Int?
+  EstatusKrispyKreme            Int?
+  TipoUsuarioMantenimiento      Int?
+  EstatusMantenimiento          Int?
+  EstatusReqPersonal            Int?
+  TipoUsuarioReqPersonal        Int?
+  EstatusMesaControl            Int?
+  TipoUsuarioPropuestas         Int?
+  EstatusPropuestas             Int?
+  TipoUsuarioQuejas             Int?
+  EstatusQuejas                 Int?
+  TipoUsuarioEncuesta           Int?
+  EstatusEncuesta               Int?
+  TipoUsuarioAccountability     Int?
+  EstatusAccountability         Int?
+  EstatusMapasProcesos          Int?
+  PassSugar                     String?   @db.NChar(10)
+  EstatusAvancesProyectos       Int?
+  TipoUsuarioAvancesProyectos   Int?
+  TipoUsuarioCalidad            Int?
+  EstatusCalidad                Int?
+  EstatusVW                     Int?
+  TipoUsuarioVW                 Int?
+  EstatusContratos              Int?
+  TipoUsuarioContratos          Int?
+  fecha_nacimiento              DateTime? @db.Date
+  EstatusFichasTecnicas         Int?
+  TipoUsuarioJuntas             Int?
+  EstatusJuntas                 Int?
+  encryptPassword               Bytes?
+  updatePassword                Bytes?    @db.Binary(1)
+}
+
+model cat_Usuarios_R26062022 {
+  Id_Usuario                                                             Int          @id(map: "PK__cat_Usua__63C76BE2FE5EC825_copy1") @default(autoincrement())
+  Nombre                                                                 String?      @db.NVarChar(50)
+  Login                                                                  String?      @db.NVarChar(50)
+  Password                                                               String?      @db.NVarChar(50)
+  Departamento                                                           String?      @db.NVarChar(50)
+  Agente                                                                 String?      @db.VarChar(10)
+  Correo                                                                 String?      @db.NVarChar(100)
+  Correo2                                                                String?      @db.NVarChar(100)
+  Extension                                                              Decimal?     @db.Decimal(18, 0)
+  Puesto                                                                 String?      @db.VarChar(50)
+  estatus                                                                String?      @db.VarChar(20)
+  EstatusLitoApps                                                        Int?
+  EstatusTickets                                                         Int?
+  EstatusTSistemas                                                       Int?
+  TipoUsuarioTSistemas                                                   Int?
+  EstatusTMantto                                                         Int?
+  TipoUsuarioTMantto                                                     Int?
+  EstatusTMensajerias1                                                   Int?
+  TipoUsuarioTMensajeria1                                                Int?
+  EstatusTMensajerias2                                                   Int?
+  TipoUsuarioTMensajerias2                                               Int?
+  EstatusCRM                                                             Int?
+  TipoUsuarioCRM                                                         Int?
+  IdCRM                                                                  Int?
+  EstatusLibera                                                          Int?
+  TipoUsuarioLibera                                                      Int?
+  EstatusMaquilas                                                        Int?
+  TipoUsuarioMaquilas                                                    Int?
+  EstatusMuestras                                                        Int?
+  TipoUsuarioMuestras                                                    Int?
+  EstatusRevBDD                                                          Int?
+  TipoUsuarioRevBDD                                                      Int?
+  EstatusReprocesos                                                      Int?
+  TipoUsuarioReprocesos                                                  Int?
+  EstatusCapacitacion                                                    Int?
+  TipoUsuarioCapacitacion                                                Int?
+  EstatusInventario                                                      Int?
+  TipoUsuarioInventario                                                  Int?
+  EstatusNissan                                                          Int?
+  TipoUsuarioNissan                                                      Int?
+  EstatusCRECE                                                           Int?
+  TipoUsuarioCRECE                                                       Int?
+  EstatusCotizador                                                       Int?
+  TipoUsuarioCotizador                                                   Int?
+  TipoUsuarioListadoCotizador                                            Int?
+  EstatusReportesProduccion                                              Int?
+  TipoUsuarioReportesProduccion                                          Int?
+  EstatusPreviewOP                                                       Int?
+  TipoUsuarioPreviewOP                                                   Int?
+  EstatusiDashboards                                                     Int?
+  EstatusDBxtra                                                          Int?
+  EstatusStarbucks                                                       Int?
+  EstatusStarbucks2                                                      Int?
+  EstatusKrispyKreme                                                     Int?
+  TipoUsuarioMantenimiento                                               Int?
+  EstatusMantenimiento                                                   Int?
+  EstatusReqPersonal                                                     Int?
+  TipoUsuarioReqPersonal                                                 Int?
+  EstatusMesaControl                                                     Int?
+  TipoUsuarioPropuestas                                                  Int?
+  EstatusPropuestas                                                      Int?
+  TipoUsuarioQuejas                                                      Int?
+  EstatusQuejas                                                          Int?
+  TipoUsuarioEncuesta                                                    Int?
+  EstatusEncuesta                                                        Int?
+  TipoUsuarioAccountability                                              Int?
+  EstatusAccountability                                                  Int?
+  EstatusMapasProcesos                                                   Int?
+  PassSugar                                                              String?      @db.NChar(10)
+  EstatusAvancesProyectos                                                Int?
+  TipoUsuarioAvancesProyectos                                            Int?
+  TipoUsuarioCalidad                                                     Int?
+  EstatusCalidad                                                         Int?
+  EstatusVW                                                              Int?
+  TipoUsuarioVW                                                          Int?
+  EstatusContratos                                                       Int?
+  TipoUsuarioContratos                                                   Int?
+  fecha_nacimiento                                                       DateTime?    @db.Date
+  EstatusFichasTecnicas                                                  Int?
+  TipoUsuarioJuntas                                                      Int?
+  EstatusJuntas                                                          Int?
+  EstatusFiesta                                                          Int?
+  TipoUsuarioFiesta                                                      Int?
+  TipoUsuarioLayouts                                                     Int?
+  EstatusLayouts                                                         Int?
+  TipoUsuarioFechasEntrega                                               Int?
+  EstatusFechasEntrega                                                   Int?
+  TipoUsuarioProductividadAM                                             Int?
+  EstatusProductividadAM                                                 Int?
+  TipoUsuarioMapasProcesos                                               Int?
+  EstatusAltaClientes                                                    Int?
+  TipoUsuarioAltaClientes                                                Int?
+  EstatusSGC                                                             Int?
+  TipoUsuarioSGC                                                         Int?
+  TipoUsuarioFichasTecnicas                                              Int?
+  EstatusEtiquetas                                                       Int?
+  TipoUsuarioEtiquetas                                                   Int?
+  EstatusAuditorias                                                      Int?
+  TipoUsuarioAuditorias                                                  Int?
+  EstatusDosiers                                                         Int?
+  EstatusStarbucks3                                                      Int?
+  EstatusTMuestras                                                       Int?
+  TipoUsuarioTMuestras                                                   Int?
+  EstatusAlmacenPT                                                       Int?
+  TipoUsuarioAlmacenPT                                                   Int?
+  EstatusSolunion                                                        Int?
+  TipoUsuarioSolunion                                                    Int?
+  Personal                                                               Int?
+  EstatusTDesing                                                         Int?
+  TipoUsuarioTDesing                                                     Int?
+  EstatusAltaArticulosIntelisis                                          Int?
+  TipoUsuarioAltaArticulosIntelisis                                      Int?
+  EstatusKFC                                                             Int?
+  EstatusAltaArticulos                                                   Int?
+  PasswordAltaArticulos                                                  String?      @db.VarChar(255)
+  TipoUsuarioTicketsEstructural                                          Int?
+  EstatusTicketsEstructural                                              Int?
+  EstatusIncidencias                                                     Int?
+  TipoUsuarioIncidencias                                                 Int?
+  EstatusNissanInventarios                                               Int?         @default(0, map: "DF__cat_Usuar__Estat__41B8C09B")
+  encryptPassword                                                        Bytes?       @db.VarBinary(1)
+  updatePassword                                                         Bytes?       @db.Binary(1)
+  EstatusAsistencias                                                     Int?
+  TipoUsuarioAsistencias                                                 Int?
+  EstatusVales                                                           Int?
+  TipoUsuarioVales                                                       Int?
+  EstatusBuro                                                            Int?
+  TipoUsuarioBuro                                                        Int?
+  TipoUsuarioSB                                                          Int?
+  TipoUsuarioKrispyKreme                                                 Int?
+  TipoUsuarioKfc                                                         Int?
+  EstatusDocumentosLicitaciones                                          Int?
+  TipoUsuarioDocumentosLicitaciones                                      Int?
+  EstatusLiteratura                                                      Int?
+  TipoUsuarioLiteratura                                                  Int?
+  PasswordAutCredito                                                     String?      @db.VarChar(255)
+  EstatusCertificadosCalidad                                             Int?
+  TipoUsuarioCertificadosCalidad                                         Int?
+  EstatusIncidenciasProduccion                                           Int?
+  TipoUsuarioIncidenciasProduccion                                       Int?
+  EstatusArticulosMultiples                                              Int?
+  EstatusCuestionariosSTPS                                               Int?
+  TipoUsuarioCuestionariosSTPS                                           Int?
+  EstatusAdenda                                                          Int?
+  EstatusSolicitudes                                                     Int?
+  EstatusSliders                                                         Int?
+  TipoUsuarioSliders                                                     Int?
+  EstatusKrispyKreme2                                                    Int?
+  TipoUsuarioKrispyKreme2                                                Int?
+  CatPerfiles_cat_Usuarios_R26062022_TipoUsuarioSBToCatPerfiles          CatPerfiles? @relation("cat_Usuarios_R26062022_TipoUsuarioSBToCatPerfiles", fields: [TipoUsuarioSB], references: [Id_Perfil], onDelete: NoAction, onUpdate: NoAction, map: "FK__cat_Usuar__TipoU__42ACE4D4")
+  CatPerfiles_cat_Usuarios_R26062022_TipoUsuarioKrispyKremeToCatPerfiles CatPerfiles? @relation("cat_Usuarios_R26062022_TipoUsuarioKrispyKremeToCatPerfiles", fields: [TipoUsuarioKrispyKreme], references: [Id_Perfil], onDelete: NoAction, onUpdate: NoAction, map: "FK__cat_Usuar__TipoU__43A1090D")
+  CatPerfiles_cat_Usuarios_R26062022_TipoUsuarioKfcToCatPerfiles         CatPerfiles? @relation("cat_Usuarios_R26062022_TipoUsuarioKfcToCatPerfiles", fields: [TipoUsuarioKfc], references: [Id_Perfil], onDelete: NoAction, onUpdate: NoAction, map: "FK__cat_Usuar__TipoU__44952D46")
+}
+
+model CatAcciones {
+  Id_Accion       Int               @id(map: "PK__CatPermi__8B4613E06B5C8F55") @default(autoincrement())
+  Descripcion     String            @db.NVarChar(Max)
+  STAccion        Boolean
+  PermisosUsuario PermisosUsuario[]
+
+  @@index([Id_Accion], map: "IX_CatPermisosModulos")
+}
+
+model CatModulos {
+  Id_Modulo       Int               @id(map: "PK__CatModul__26CEB88F04B0C7E9") @default(autoincrement())
+  Nombre          String            @db.NVarChar(255)
+  Descripcion     String?           @db.NVarChar(255)
+  NombreId        String?           @db.NVarChar(255)
+  Categoria       String?           @db.NVarChar(255)
+  Url             String?           @db.NVarChar(255)
+  RutaImagen      String?           @db.NVarChar(255)
+  Color           String?           @db.NChar(10)
+  STModulo        Boolean
+  PermisosUsuario PermisosUsuario[]
+}
+
+model CatPerfiles {
+  Id_Perfil                                                                         Int                      @id(map: "PK__Perfiles__CDE78E2215236C54") @default(autoincrement())
+  Descripcion                                                                       String                   @db.NVarChar(255)
+  STPerfil                                                                          Boolean
+  cat_Usuarios_cat_Usuarios_TipoUsuarioSBToCatPerfiles                              cat_Usuarios[]           @relation("cat_Usuarios_TipoUsuarioSBToCatPerfiles")
+  cat_Usuarios_cat_Usuarios_TipoUsuarioKrispyKremeToCatPerfiles                     cat_Usuarios[]           @relation("cat_Usuarios_TipoUsuarioKrispyKremeToCatPerfiles")
+  cat_Usuarios_cat_Usuarios_TipoUsuarioKfcToCatPerfiles                             cat_Usuarios[]           @relation("cat_Usuarios_TipoUsuarioKfcToCatPerfiles")
+  cat_Usuarios_R26062022_cat_Usuarios_R26062022_TipoUsuarioSBToCatPerfiles          cat_Usuarios_R26062022[] @relation("cat_Usuarios_R26062022_TipoUsuarioSBToCatPerfiles")
+  cat_Usuarios_R26062022_cat_Usuarios_R26062022_TipoUsuarioKrispyKremeToCatPerfiles cat_Usuarios_R26062022[] @relation("cat_Usuarios_R26062022_TipoUsuarioKrispyKremeToCatPerfiles")
+  cat_Usuarios_R26062022_cat_Usuarios_R26062022_TipoUsuarioKfcToCatPerfiles         cat_Usuarios_R26062022[] @relation("cat_Usuarios_R26062022_TipoUsuarioKfcToCatPerfiles")
+}
+
+model ExternalUser {
+  id       String    @id(map: "PK_ExternalUser") @db.VarChar(50)
+  name     String?   @db.VarChar(250)
+  username String?   @db.VarChar(200)
+  email    String?   @db.VarChar(250)
+  photoURL String?   @db.VarChar(255)
+  register DateTime? @db.DateTime
+  estatus  Boolean?
+}
+
+model OpenAIUsers {
+  Id_Usuario     Int       @id(map: "PK_OpenAIUsers")
+  assistant_id   String?   @db.VarChar(50)
+  thread_id      String?   @db.VarChar(50)
+  fecha_registro DateTime? @default(now(), map: "DF_OpenAIUsers_fecha_registro") @db.DateTime
+}
+
+model PermisosUsuario {
+  Id_PermisosUsuario Int          @id(map: "PK__BitPermi__DC95E746A06D60B0") @default(autoincrement())
+  Id_Usuario         Int
+  Id_Modulo          Int
+  Id_Accion          Int
+  Acceso             Boolean
+  CatModulos         CatModulos   @relation(fields: [Id_Modulo], references: [Id_Modulo], onUpdate: NoAction, map: "FK_BitPermisos_CatModulos")
+  cat_Usuarios       cat_Usuarios @relation(fields: [Id_Usuario], references: [Id_Usuario], onUpdate: NoAction, map: "FK_BitPermisos_PerfilesUsuario")
+  CatAcciones        CatAcciones  @relation(fields: [Id_Accion], references: [Id_Accion], onUpdate: NoAction, map: "FK_PermisosPerfil_CatAcciones")
+}
+
+model sysdiagrams {
+  name         String @db.NVarChar(128)
+  principal_id Int
+  diagram_id   Int    @id(map: "PK__sysdiagr__C2B05B612B17DEEF") @default(autoincrement())
+  version      Int?
+  definition   Bytes?
+
+  @@unique([principal_id, name], map: "UK_principal_name")
+}

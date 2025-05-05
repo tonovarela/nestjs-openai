@@ -9,7 +9,7 @@ export class Assistant {
     constructor(
         private readonly openai: OpenAI,
         private threadId?: string,
-        private readonly assistantId = "asst_2bnvUZDIEWFXvUHGahUkRFy6"
+        private  assistantId = "asst_V9BBeZN8YrYETUS6jwFr1Szn"
     ) {
         //this.initThread();
     }

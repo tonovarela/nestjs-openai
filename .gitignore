@@ -7,7 +7,7 @@
 /generated/*
 !/generated/.gitkeep
 
-
+/generated/prisma
 
 .env
 

@@ -3,8 +3,13 @@ import {  IsString } from "class-validator";
 
 export class QuestionDto {
 
+
   @IsString()
-  threadId: string;  
+  IdAsistant:string;
+
+  @IsString()
+  Id_Usuario:string;
+
   @IsString()
   readonly question: string;    
  
