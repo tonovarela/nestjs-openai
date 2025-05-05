@@ -31,4 +31,4 @@ COPY --from=builder /app/prisma ./prisma
 CMD ["node", "dist/src/main"]
 
 # Exponer el puerto
-EXPOSE 3000
+EXPOSE 8088

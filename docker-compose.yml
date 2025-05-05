@@ -3,10 +3,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: nestjs-openai-api
+    container_name: nestjs-openai
     restart: always
     ports:
-      - "3000:3000"
+      - "8088:8088"
     environment:
       - NODE_ENV=production
       - OPENAI_API_KEY=${OPENAI_API_KEY}   

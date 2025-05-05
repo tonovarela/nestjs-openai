@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
    
-  //app.enableCors();
+  app.enableCors();
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -25,7 +25,6 @@ async function bootstrap() {
   app.use( bodyParser.urlencoded({ limit: '10mb', extended: true }) );
   
 
-
-  await app.listen(3000);
+  await app.listen(8088);
 }
 bootstrap();
