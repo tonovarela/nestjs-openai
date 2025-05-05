@@ -8,7 +8,7 @@ export class QuestionDto {
   IdAsistant:string;
 
   @IsString()
-  Id_Usuario:string;
+  userId:string;
 
   @IsString()
   readonly question: string;    

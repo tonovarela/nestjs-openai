@@ -70,8 +70,8 @@ export class SamAsistantService extends PrismaClient implements OnModuleInit {
   }
 
   async userQuestion(questionDTO: QuestionDto) {
-    const { Id_Usuario,IdAsistant, question } = questionDTO;            
-    const threadId = await this.getThreadIdUser(Id_Usuario,IdAsistant);    
+    const { userId,IdAsistant, question } = questionDTO;            
+    const threadId = await this.getThreadIdUser(userId,IdAsistant);    
     const asistantInstance = new Assistant(this.openai,threadId,IdAsistant);        
     return asistantInstance.makeQuestion(question);
   }
@@ -87,7 +87,7 @@ export class SamAsistantService extends PrismaClient implements OnModuleInit {
 
   async *userQuestionStream(questionDTO: QuestionDto) {
     const {  question } = questionDTO;
-    const  threadId = await this.getThreadIdUser(questionDTO.Id_Usuario,questionDTO.IdAsistant);
+    const  threadId = await this.getThreadIdUser(questionDTO.userId,questionDTO.IdAsistant);
     const asistantInstance = new Assistant(this.openai, threadId);
     const stream = asistantInstance.createRunStream(question);
             for await (const chunk of stream) {
