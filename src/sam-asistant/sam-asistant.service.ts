@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { ConsoleLogger, Injectable, OnModuleInit } from '@nestjs/common';
 import OpenAI from 'openai';
 import { QuestionDto } from './dto/question.dto';
 import { Assistant } from './clases/Assistant';
@@ -20,6 +20,8 @@ export class SamAsistantService extends PrismaClient implements OnModuleInit {
   private async getThreadIdUser(Id_Usuario: string, IdAsistant: string) {    
     const userDB= await this.openAIUsers.findFirst({where: { Id_Usuario: +Id_Usuario ,assistant_id: IdAsistant }});     
      let threadId =userDB?.thread_id || "";     
+     console.log("Desde el inicio del hilo");
+     console.log(IdAsistant);
      const asistantInstance = new Assistant(this.openai,threadId,IdAsistant);    
       const isValidThread = await asistantInstance.isValidThread();
       if (!isValidThread) {
@@ -60,7 +62,9 @@ export class SamAsistantService extends PrismaClient implements OnModuleInit {
   async getMessagesPerUser(Id_Usuario: string, Id_Asistant,limit?: number) {
 
     const threadId = await this.getThreadIdUser(Id_Usuario,Id_Asistant);    
-    const asistantInstance = new Assistant(this.openai, threadId);
+    console.log("Desde el servicio getMessagesPerUser");
+    console.log({Id_Asistant, threadId});
+    const asistantInstance = new Assistant(this.openai, threadId,Id_Asistant);
     const isValidThread = await asistantInstance.isValidThread();
     if (!isValidThread) {
       return { error: "Thread no valido", messages: [] };
@@ -78,17 +82,17 @@ export class SamAsistantService extends PrismaClient implements OnModuleInit {
 
 
 
-  // async listAsistants() {
-  //   const asistants = await this.openai.beta.assistants.list();
-  //   return asistants.data;
-  // }
+  async listAsistants() {
+    const asistants = await this.openai.beta.assistants.list();
+    return asistants.data;
+  }
 
 
 
   async *userQuestionStream(questionDTO: QuestionDto) {
     const {  question } = questionDTO;
     const  threadId = await this.getThreadIdUser(questionDTO.userId,questionDTO.IdAsistant);
-    const asistantInstance = new Assistant(this.openai, threadId);
+    const asistantInstance = new Assistant(this.openai, threadId,questionDTO.IdAsistant);
     const stream = asistantInstance.createRunStream(question);
             for await (const chunk of stream) {
                 yield chunk;

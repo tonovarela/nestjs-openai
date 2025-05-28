@@ -8,10 +8,10 @@ export class Assistant {
 
     constructor(
         private readonly openai: OpenAI,
-        private threadId?: string,
-        private  assistantId = "asst_V9BBeZN8YrYETUS6jwFr1Szn"
+        private threadId: string,
+        private  assistantId :string
     ) {
-        //this.initThread();
+        this.initThread();
     }
 
     public async initThread(): Promise<void> {
@@ -27,6 +27,8 @@ export class Assistant {
 
     public async isValidThread(): Promise<boolean> {
         try {
+            console.log("Validando hilo");
+            console.log(this.threadId);
             await this.openai.beta.threads.retrieve(this.threadId);
             return true;
         } catch {
@@ -39,7 +41,7 @@ export class Assistant {
             const isValidThread = await this.isValidThread();
             if (!isValidThread) {
                 return { error: "Thread no valido", messages: [] };
-            }
+            }            
             const messageList = await this.openai.beta.threads.messages.list(this.threadId, { limit });
             const messages = messageList.data.map(this.formatMessage);
             return { error: null, messages: messages.reverse() };

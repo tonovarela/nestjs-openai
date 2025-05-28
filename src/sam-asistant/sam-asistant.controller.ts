@@ -48,4 +48,13 @@ export class SamAsistantController {
     }
   }
 
+
+  @Get('list-asistants')
+  async listAsistants() {
+    const asistants = await this.samAsistantService.listAsistants();
+    return { asistants };
+  }
+
+  
+
 }
