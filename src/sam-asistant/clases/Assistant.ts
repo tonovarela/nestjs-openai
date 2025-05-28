@@ -26,9 +26,7 @@ export class Assistant {
     }
 
     public async isValidThread(): Promise<boolean> {
-        try {
-            console.log("Validando hilo");
-            console.log(this.threadId);
+        try {            
             await this.openai.beta.threads.retrieve(this.threadId);
             return true;
         } catch {
